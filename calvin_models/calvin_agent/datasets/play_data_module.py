@@ -72,6 +72,7 @@ class PlayDataModule(pl.LightningDataModule):
         self.val_transforms = {key: torchvision.transforms.Compose(val) for key, val in self.val_transforms.items()}
         self.train_datasets, self.train_sampler, self.val_datasets, self.val_sampler = {}, {}, {}, {}
         for _, dataset in self.datasets_cfg.items():
+            import ipdb; ipdb.set_trace()
             train_dataset = hydra.utils.instantiate(
                 dataset, datasets_dir=self.training_dir, transforms=self.train_transforms
             )

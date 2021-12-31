@@ -11,7 +11,7 @@ defaults:
 
   - override hydra/job_logging: colorlog
   - override hydra/hydra_logging: colorlog
-  - override datamodule/observation_space: state_only
+  # - override datamodule/observation_space: state_only
 seed: 42
 log_dir: ../
 slurm: false

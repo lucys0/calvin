@@ -58,7 +58,7 @@ def generate_all_seq_gifs(data, dataset):
         seq_length = idx[1] - idx[0]
         dataset.max_window_size, dataset.min_window_size = seq_length, seq_length
         start = dataset.episode_lookup.index(idx[0])
-        seq_img = dataset[start][1][0].numpy()
+        seq_img = dataset[start]["rgb_obs"]["rgb_static"].numpy()
         # if 'lift' in data['language']['task'][i]:
         imgs = generate_single_seq_gif(seq_img, seq_length, imgs, idx, i, data)
     return imgs
@@ -81,7 +81,7 @@ def plot_and_save_gifs(imgs):
     # plt.title("Annotated Sequences")
     # plt.show()
     # anim.save("/tmp/summary_lang_anns.mp4", writer="ffmpeg", fps=15)
-    video = cv2.VideoWriter("/tmp/summary_lang_anns.avi", cv2.VideoWriter_fourcc(*"XVID"), 15, (500, 500))
+    video = cv2.VideoWriter("/tmp/summary_lang_anns.mp4", cv2.VideoWriter_fourcc(*"mp4v"), 15, (500, 500))
     for img in imgs:
         video.write(img)
     video.release()
@@ -120,6 +120,7 @@ def visualize_embeddings(data, with_text=True):
 
 @hydra.main(config_path="../../conf", config_name="lang_ann.yaml")
 def main(cfg: DictConfig) -> None:
+    import ipdb; ipdb.set_trace()
     data, dataset_obj = load_data(cfg)
     # visualize_embeddings(data)
     imgs = generate_all_seq_gifs(data, dataset_obj)
